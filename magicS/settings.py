@@ -1,6 +1,3 @@
-from .chunk import Chunk
-from .map import Map
-
 
 class Settings:
     CHUNK_SIZE = (600, 600)
@@ -9,25 +6,13 @@ class Settings:
 
     MAP_SIZE = (10, 10)  # in chunks
 
-    def __new__(cls, *args, **kwargs):
-        if Chunk in args:
-            return cls.chunk(cls)
-        if Map in args:
-            return cls.map(cls)
+    DEV_MENU = True
 
-    @staticmethod
-    def chunk(cls):
+    class Chunk:
+        size = (600, 600)
+        image_repeat = True
+        image_size = 512
 
-        class ChunkSettings:
-            size = cls.CHUNK_SIZE
-            image_repeat = cls.CHUNK_IMAGE_REPEAT
-            image_size = cls.CHUNK_IMAGE_SIZE
-        return ChunkSettings()
-
-    @staticmethod
-    def map(cls):
-
-        class MapSettings:
-            size = cls.MAP_SIZE
-        return MapSettings()
-
+    class Map:
+        size = (10, 10)  # in chunks
+        visibility_range = (600, 600)  # chunk size

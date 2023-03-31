@@ -1,6 +1,11 @@
-class Map:
-    CHUNK_SIZE = 256
-    MAP_SIZE = 3
+from .settings import Settings
+from .model.player import Player
 
-    def __init__(self):
+
+class Map:
+
+    def __init__(self, player: Player):
         self._chunks = {}
+
+    def draw(self, x_range, y_range):
+        ...

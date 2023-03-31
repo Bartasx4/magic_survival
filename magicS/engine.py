@@ -2,6 +2,8 @@ import pygame
 from pygame.locals import *
 
 from .chunk import Chunk
+from .model.player import Player
+from .settings import Settings
 
 pygame.init()
 
@@ -9,11 +11,21 @@ pygame.init()
 class Engine:
 
     def __init__(self):
+        self._player = Player(0, 0, 0, 0, 0, '', (0, 0), 0, 0)
         self._running = True
         self._clock = pygame.time.Clock()
         self._window = pygame.display.set_mode((600, 600))
         pygame.display.set_caption('Magic survival')
         self.__loop()
+
+    def chunk_range(self):
+        player_chunk = self.coord_to_chunk(*self._player.position)
+
+    @staticmethod
+    def coord_to_chunk(x: int, y: int):
+        column = int(x / Settings.Chunk.size[0]) - 1
+        row = int(y / Settings.Chunk.size[1]) - 1
+        return column, row
 
     def __get_event(self):
         mouse = pygame.mouse

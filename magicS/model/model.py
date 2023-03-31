@@ -27,3 +27,15 @@ class Model:
         self._position = position
         self._size = size
         self._velocity = velocity
+
+    @property
+    def position(self):
+        return self._position
+
+    @property
+    def x(self):
+        return self._position[0]
+
+    @property
+    def y(self):
+        return self._position[1]

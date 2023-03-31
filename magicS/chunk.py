@@ -13,6 +13,7 @@ class Chunk:
     _image: pygame.Surface
     _surface: pygame.Surface
     _rect: pygame.Rect
+    _entities: list
 
     def __init__(self,
                  chunk_size: tuple[int, int],
@@ -27,6 +28,8 @@ class Chunk:
         self._image = pygame.transform.scale(self._image, image_size) if image_size else self._image
         self._surface = pygame.Surface(self._size)
         self.__repeat() if image_repeat else self.__stretch()
+        if Settings.DEV_MENU:
+            self.__draw_dev()
         self._rect = self._surface.get_rect()
 
     @property
@@ -36,10 +39,6 @@ class Chunk:
     @property
     def rect(self):
         return self._rect
-
-    @property
-    def to_coord(self):
-        return self._x * self._size[0], self._y * self._size[1]
 
     def __repeat(self, set_size=None):
         if set_size is not None:
@@ -54,3 +53,6 @@ class Chunk:
     def __stretch(self):
         image = pygame.transform.scale(self._image, self._size)
         self._surface.blit(image, self._surface.get_rect())
+
+    def __draw_dev(self):
+        pygame.draw.rect(self._surface, 'pink', self._surface.get_rect(), 2)
